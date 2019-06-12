@@ -3,7 +3,7 @@ package bot
 import (
 	"fmt"
 
-	"github.com/Southclaws/cj/discord"
+	"github.com/samp-pinch/cj/tree/master/discord"
 	"github.com/bwmarrin/discordgo"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -17,9 +17,9 @@ type ChannelDM struct {
 	LastMessageID string         `json:"last_message_id"`
 }
 
-const greeting = `Hi! Welcome to the San Andreas Multiplayer unofficial Discord server!
+const greeting = `Pozdrav! Dobrodošli na burgershot.gg (EX-YU - unofficial) discord server!
 
-You can verify your forum account by typing %s below, this helps us ensure people aren't impersonating others.`
+Možete verifikovati Vaš nalog tako što ćete poslati poruku %s dole, ovo nam pomaže zbog ljudi koji se lažno predstavljaju kao drugi.`
 
 // ConnectDiscord sets up the Discord API and event listeners
 func (app *App) ConnectDiscord() (err error) {
