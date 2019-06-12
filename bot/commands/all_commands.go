@@ -5,7 +5,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/Southclaws/cj/types"
+	"github.com/samp-pinch/cj/tree/master/types"
 )
 
 // LoadCommands is called on initialisation and is responsible for registering
