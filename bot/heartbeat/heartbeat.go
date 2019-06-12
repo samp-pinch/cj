@@ -10,13 +10,13 @@ import (
 	"github.com/robfig/cron"
 	"go.uber.org/zap"
 
-	"github.com/Southclaws/cj/bot/heartbeat/common"
-	"github.com/Southclaws/cj/bot/heartbeat/stats"
-	"github.com/Southclaws/cj/bot/heartbeat/talking"
-	"github.com/Southclaws/cj/discord"
-	"github.com/Southclaws/cj/forum"
-	"github.com/Southclaws/cj/storage"
-	"github.com/Southclaws/cj/types"
+	"github.com/samp-pinch/cj/tree/master/bot/heartbeat/common"
+	"github.com/samp-pinch/cj/tree/master/bot/heartbeat/stats"
+	"github.com/samp-pinch/cj/tree/master/bot/heartbeat/talking"
+	"github.com/samp-pinch/cj/tree/master/discord"
+	"github.com/samp-pinch/cj/tree/master/forum"
+	"github.com/samp-pinch/cj/tree/master/storage"
+	"github.com/samp-pinch/cj/tree/master/types"
 )
 
 // ActionProvider describes a type that provides a registration function that
