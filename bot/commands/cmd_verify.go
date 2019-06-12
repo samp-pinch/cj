@@ -65,9 +65,9 @@ func (cm *CommandManager) commandVerify(
 			if discorderr != nil {
 				err = errors.New(fmt.Sprintf("failed to add verified role for %s", message.Author.ID))
 			}
-			cm.Discord.ChannelMessageSend(message.ChannelID, "You have now recieved your verified role.")
+			cm.Discord.ChannelMessageSend(message.ChannelID, "Sada ste Verifikovani.")
 		} else {
-			cm.Discord.ChannelMessageSend(message.ChannelID, "User already has verified role.")
+			cm.Discord.ChannelMessageSend(message.ChannelID, "Korisnik je vec verifikovan.")
 		}
 		return
 	}
@@ -117,18 +117,18 @@ func (cm *CommandManager) UserStartsVerification(message discordgo.Message) (err
 	}
 
 	cm.Discord.ChannelMessageSend(message.ChannelID, fmt.Sprintf(
-		`Hi! This process will verify you are the owner of a Burgershot forum account. Please provide your user profile URL or ID.
+		`Pozdrav! Ovaj proces će potvrditi da ste Vi vlasnik forum računa (Burgershot.gg). Navedite URL Vašeg profila ili korisnički ID.
 
-For example: (Note: These are ***EXAMPLES***, don't just copy paste these...)
+Na primer: (Napomena: Ovo su ***PRIMERI***, Nemojte samo copy i paste ovo...)
 
 • %s
 • %s
 • %s
 
-Each stage of the verification process will time-out after 5 minutes,
-if you take longer than that to respond you will need to start again.
+Svaka faza procesa verifikacije će isteći posle 5 minuta,
+ako Vam bude trebalo duže od toga, morate ponoviti proces.
 
-Need some help regarding verification? You can always read the thread that explains how to verify! (%s)`,
+Treba mi pomoć u vezi verifikacije? Uvek možete pročitati temu koja objašnjava kako da verifikujete nalog! (%s)`,
 		`https://www.burgershot.gg/member.php?action=profile&uid=3`,
 		`www.burgershot.gg/member.php?action=profile&uid=3`,
 		`3`,
@@ -191,8 +191,8 @@ func (cm *CommandManager) UserProvidesProfileURL(message discordgo.Message) (err
 	cm.SetVerificationState(&verification, types.VerificationStateAwaitConfirmation)
 
 	cm.Discord.ChannelMessageSend(message.ChannelID,
-		fmt.Sprintf(`Thanks! Now you just need to paste this ID in the "Discord ID" section of your profile: **%s**.
-		When you have done this, please reply with the message 'done'.`,
+		fmt.Sprintf(`Hvala! Sad je potrebno da prekopirate ovaj ID u "Discord ID" polje Vašeg profila: **%s**.
+		Kada to uradite, molimo vas da odgovorite na ovu poruku sa 'done'.`,
 			message.Author.ID))
 	return
 }
@@ -230,7 +230,7 @@ func (cm *CommandManager) UserConfirmsProfile(message discordgo.Message) (err er
 	if !matched {
 		cm.Discord.ChannelMessageSend(
 			message.ChannelID,
-			"Sorry, your verification failed. Your discord id was not found on your profile page.")
+			"Oprostite, verifikacija nije uspela. Vaš Discord ID nije pronadjen.")
 		return
 	}
 
@@ -245,7 +245,7 @@ func (cm *CommandManager) UserConfirmsProfile(message discordgo.Message) (err er
 	}
 
 	cm.Discord.ChannelMessageSend(message.ChannelID, fmt.Sprintf(
-		"Congratulations! You have been verified as the owner of the forum account **%s**. Have a nice day!",
+		"Čestitamo! Potvrdili ste vlasništvo nad profilom **%s**. Prijatan dan!",
 		verification.UserProfile.UserName,
 	))
 	return err
@@ -262,7 +262,7 @@ func (cm *CommandManager) UserCancelsVerification(message discordgo.Message) (er
 	cm.Cache.Delete(message.Author.ID)
 
 	cm.Discord.ChannelMessageSend(message.ChannelID,
-		"You have cancelled your verification. You can start again at any time by sending 'verify'.")
+		"Prekinuli ste proces verifikacije. Možete je ponovo započeti slanjem poruke 'verify'.")
 	return
 }
 
@@ -274,11 +274,11 @@ func (cm *CommandManager) WarnUserVerificationState(channelid string, verificati
 	var stateMessage string
 	switch verification.VerifyState {
 	case types.VerificationStateNone:
-		stateMessage = "Your verification is currently in an invalid state, please try again in 5 minutes!"
+		stateMessage = "Vaš verifikacija je trenutno u neispravnom stanju, pokušajte ponovo za 5 minuta!"
 	case types.VerificationStateAwaitProfileURL:
-		stateMessage = "Your verification is currently awaiting a profile URL or profile ID."
+		stateMessage = "Vaša verifikacija trenutno čeka URL profila ili ID profila."
 	case types.VerificationStateAwaitConfirmation:
-		stateMessage = "Your verification is currently awaiting you to add your discord ID to your profile, once you've done that reply with either `done` or `cancel`"
+		stateMessage = "Vaš verifikacija Vas trenutno čeka da dodate ID na svom profilu, kada završite pošaljite odgovor sa `done` ili `cancel`"
 	}
 	cm.Discord.ChannelMessageSend(channelid, stateMessage)
 	return
@@ -287,14 +287,14 @@ func (cm *CommandManager) WarnUserVerificationState(channelid string, verificati
 // WarnUserNoVerification is simply a message informing the user their
 // Verification does not exist and they need to start the process with 'verify'.
 func (cm *CommandManager) WarnUserNoVerification(channelid string) (err error) {
-	cm.Discord.ChannelMessageSend(channelid, "You need to start your verification by typing 'verify'.")
+	cm.Discord.ChannelMessageSend(channelid, "Potrebno je da pokrenete verifikaciju kucanjem 'verify'.")
 	return
 }
 
 // WarnUserError informs the user of an error and provides them with
 // instructions for what to do next.
 func (cm *CommandManager) WarnUserError(channelid string, errorString string) (err error) {
-	cm.Discord.ChannelMessageSend(channelid, fmt.Sprintf(`An error occurred: "%s"`, errorString))
+	cm.Discord.ChannelMessageSend(channelid, fmt.Sprintf(`Došlo je do greške: "%s"`, errorString))
 	return
 }
 
